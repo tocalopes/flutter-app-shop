@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../data/dummy_data.dart';
 import '../models/product_model.dart';
+import '../components/product_item.dart';
 
 class ProductOverviewScreen extends StatelessWidget {
   final List<ProductModel> loadedProducts = DUMMY_PRODUCTS;
@@ -15,12 +16,11 @@ class ProductOverviewScreen extends StatelessWidget {
           itemCount: loadedProducts.length,
           padding: const EdgeInsets.all(10),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 3/2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10
-          ),
-          itemBuilder: (context, index) => Text(loadedProducts[index].title),
+              crossAxisCount: 2,
+              childAspectRatio: 3 / 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10),
+          itemBuilder: (context, index) => ProductItem(loadedProducts[index]),
         ));
   }
 }
