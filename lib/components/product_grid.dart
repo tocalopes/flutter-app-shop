@@ -5,19 +5,22 @@ import 'package:shop/providers/products_provider.dart';
 import 'product_item.dart';
 
 class ProductGrid extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    final loadedProducts = Provider.of<ProductsProvider>(context).items;
+    final productsProvider  = Provider.of<ProductsProvider>(context);
+    final products = productsProvider.items;
     return GridView.builder(
-      itemCount: loadedProducts.length,
+      itemCount: products.length,
       padding: const EdgeInsets.all(10),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 3 / 2,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10),
-      itemBuilder: (context, index) => ProductItem(loadedProducts[index]),
+      itemBuilder: (context, index) => ChangeNotifierProvider(
+        create: (ctx) =>  products[index],
+        child: ProductItem(),
+      ),
     );
   }
 }

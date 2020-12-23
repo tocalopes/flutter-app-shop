@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class ProductModel {
+class ProductModel with ChangeNotifier{
 
   final String id;
   final String title;
@@ -17,5 +17,10 @@ class ProductModel {
     @required this.imageUrl,
     this.isFavorite = false
   });
+
+  void toogleFavorite(){
+    isFavorite = !isFavorite;
+    notifyListeners();
+  }
 
 }
