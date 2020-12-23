@@ -9,7 +9,7 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final ProductModel product = Provider.of<ProductModel>(
       context,
-      listen: true,
+      listen: false,
     );
     Color accentColor = Theme.of(context).accentColor;
     return ClipRRect(
@@ -27,13 +27,17 @@ class ProductItem extends StatelessWidget {
           ),
           footer: GridTileBar(
             backgroundColor: Colors.black87,
-            leading: IconButton(
-              color: accentColor,
-              icon: Icon(
-                  product.isFavorite ? Icons.favorite : Icons.favorite_border),
-              onPressed: () {
-                product.toogleFavorite();
-              },
+            leading: Consumer<ProductModel>(
+              //child: Text('Nunca Muda'),
+              builder: (ctx, product, _/*child*/) => IconButton(
+                color: accentColor,
+                icon: Icon(product.isFavorite
+                    ? Icons.favorite
+                    : Icons.favorite_border),
+                onPressed: () {
+                  product.toogleFavorite();
+                },
+              ),
             ),
             title: Text(
               product.title,
