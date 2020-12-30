@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/providers/cart_provider.dart';
 import 'package:shop/providers/product_model.dart';
-import 'package:shop/screens/produtc_detail._screen.dart';
 import 'package:shop/utils/app_routes.dart';
 
 class ProductItem extends StatelessWidget {
@@ -10,6 +10,10 @@ class ProductItem extends StatelessWidget {
     final ProductModel product = Provider.of<ProductModel>(
       context,
       listen: false,
+    );
+    final Cart cart = Provider.of<Cart>(
+      context,
+      listen: false
     );
     Color accentColor = Theme.of(context).accentColor;
     return ClipRRect(
@@ -48,7 +52,9 @@ class ProductItem extends StatelessWidget {
                 Icons.shopping_cart,
                 color: accentColor,
               ),
-              onPressed: () {},
+              onPressed: () {
+                cart.addItem(product);
+              },
             ),
           ),
         ),
