@@ -11,10 +11,7 @@ class ProductItem extends StatelessWidget {
       context,
       listen: false,
     );
-    final Cart cart = Provider.of<Cart>(
-      context,
-      listen: false
-    );
+    final Cart cart = Provider.of<Cart>(context, listen: false);
     Color accentColor = Theme.of(context).accentColor;
     return ClipRRect(
       //Make component Rounded
@@ -33,7 +30,7 @@ class ProductItem extends StatelessWidget {
             backgroundColor: Colors.black87,
             leading: Consumer<ProductModel>(
               //child: Text('Nunca Muda'),
-              builder: (ctx, product, _/*child*/) => IconButton(
+              builder: (ctx, product, _ /*child*/) => IconButton(
                 color: accentColor,
                 icon: Icon(product.isFavorite
                     ? Icons.favorite
@@ -53,6 +50,21 @@ class ProductItem extends StatelessWidget {
                 color: accentColor,
               ),
               onPressed: () {
+                Scaffold.of(context).hideCurrentSnackBar();
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Produto ${product.title} adicionado ao carrinho',
+                      textAlign: TextAlign.center,
+                    ),
+                    duration: Duration(seconds: 2),
+                    action: SnackBarAction(
+                        label: 'Desfazer',
+                        onPressed: () {
+                          cart.removeSingleItem(product.id);
+                        }),
+                  ),
+                );
                 cart.addItem(product);
               },
             ),
